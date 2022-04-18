@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cody_v2.Web", "Cody_v2\Cody_v2.Web.csproj", "{9D7835BD-6C2D-4F57-957D-8F2048AA9D13}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cody_v2.Web", "Cody_v2.Web\Cody_v2.Web.csproj", "{9D7835BD-6C2D-4F57-957D-8F2048AA9D13}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cody_v2.Repositories", "Cody_v2.Repositories\Cody_v2.Repositories.csproj", "{CA3CDD41-8C80-4CBD-B5B1-57D1B5BDA6BB}"
 EndProject
