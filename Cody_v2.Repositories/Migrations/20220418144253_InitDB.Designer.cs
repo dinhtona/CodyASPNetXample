@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cody_v2.Repositories.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220418135631_Test-add-migration")]
-    partial class Testaddmigration
+    [Migration("20220418144253_InitDB")]
+    partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
