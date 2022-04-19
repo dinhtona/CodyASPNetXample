@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.32407.343
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cody_v2.Web", "Cody_v2.Web\Cody_v2.Web.csproj", "{9D7835BD-6C2D-4F57-957D-8F2048AA9D13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cody_v2.Web", "Cody_v2.Web\Cody_v2.Web.csproj", "{9D7835BD-6C2D-4F57-957D-8F2048AA9D13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cody_v2.Repositories", "Cody_v2.Repositories\Cody_v2.Repositories.csproj", "{CA3CDD41-8C80-4CBD-B5B1-57D1B5BDA6BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cody_v2.Repositories", "Cody_v2.Repositories\Cody_v2.Repositories.csproj", "{CA3CDD41-8C80-4CBD-B5B1-57D1B5BDA6BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cody_v2.Services", "Cody_v2.Services\Cody_v2.Services.csproj", "{19A396F5-F771-46C8-9D58-4DE0B48D63BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cody_v2.Services", "Cody_v2.Services\Cody_v2.Services.csproj", "{19A396F5-F771-46C8-9D58-4DE0B48D63BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D670BF42-47A5-49BA-B842-A9BF68D43C0B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

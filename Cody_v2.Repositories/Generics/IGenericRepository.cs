@@ -19,6 +19,8 @@ namespace Cody_v2.Repositories.Generics
         Task<int> Insert(List<T> entities);
         Task<int> Update(List<T> entities);
         Task<int> Delete(Expression<Func<T, bool>> filter=null);
+        Task<int> SoftDelete(Guid Id);
+        Task<int> SoftDelete(string Id);
 
     }
 }
