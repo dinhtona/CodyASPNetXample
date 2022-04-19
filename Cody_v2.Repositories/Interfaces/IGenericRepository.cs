@@ -1,7 +1,7 @@
 ﻿using Cody_v2.Repositories.Paging;
 using System.Linq.Expressions;
 
-namespace Cody_v2.Repositories.Generics
+namespace Cody_v2.Repositories.Interfaces
 {
     public interface IGenericRepository<T> where T: class
     {

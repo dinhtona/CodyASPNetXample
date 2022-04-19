@@ -1,6 +1,6 @@
 ﻿using Cody_v2.Repositories.Contexts;
 using Cody_v2.Repositories.Entities;
-using Cody_v2.Repositories.Generics;
+using Cody_v2.Repositories.Interfaces;
 using Cody_v2.Repositories.Paging;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
