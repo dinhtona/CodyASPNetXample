@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cody_v2.Services.Interfaces
 {
-    internal interface IProductService:IGenericService<Product>
+    public interface IProductService:IGenericService<Product>
     {
         Task<List<Product>> GetAllCurrent();
     }

@@ -12,9 +12,9 @@ namespace Cody_v2.Repositories.Entities
     {
         [MaxLength(256)]
         [DataType("nvarchar")]
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; } = "";
+        public decimal Price { get; set; } = 0;
+        public string Description { get; set; } = "";
 
     }
 }

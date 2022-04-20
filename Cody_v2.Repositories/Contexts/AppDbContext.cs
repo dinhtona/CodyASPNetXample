@@ -103,8 +103,8 @@ namespace Cody_v2.Repositories.Contexts
                     }
                 }
             }
-
-            var userId = new Guid(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+            var userIdString = _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "UserId")?.Value;
+            var userId = userIdString!=null? new Guid(userIdString):Guid.Empty;
             var modifiedEnties = ChangeTracker.Entries().Where(e => e.State == EntityState.Modified);
             foreach (var item in modifiedEnties)
             {
@@ -129,7 +129,7 @@ namespace Cody_v2.Repositories.Contexts
                     var baseEntity = item.Entity as BaseEntity;
                     if (baseEntity != null)
                     {
-                        baseEntity.Id = new Guid();
+                        baseEntity.Id = Guid.NewGuid();
 
                         baseEntity.CreatedBy = userId;
                         baseEntity.CreatedDate = DateTime.Now;

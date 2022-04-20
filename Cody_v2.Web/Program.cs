@@ -4,6 +4,7 @@ using Cody_v2.Repositories.Generics;
 using Cody_v2.Repositories.Interfaces;
 using Cody_v2.Services.Generics;
 using Cody_v2.Services.Interfaces;
+using Cody_v2.Services.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
+builder.Services.AddTransient(typeof(IProductService), typeof(ProductService));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
