@@ -10,4 +10,9 @@
     <ProjectReference Include="..\Cody_v2.Repositories\Cody_v2.Repositories.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+    <Folder Include="ResponseDTOs\" />
+  </ItemGroup>
+
 </Project>

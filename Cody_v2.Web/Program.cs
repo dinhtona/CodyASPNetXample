@@ -1,5 +1,9 @@
-﻿using Cody_v2.Repositories.Entities;
-using Cody_v2.Repositories.Contexts;
+﻿using Cody_v2.Repositories.Contexts;
+using Cody_v2.Repositories.Entities;
+using Cody_v2.Repositories.Generics;
+using Cody_v2.Repositories.Interfaces;
+using Cody_v2.Services.Generics;
+using Cody_v2.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -43,9 +50,6 @@ builder.Services.Configure<IdentityOptions>(options => {
 
 });
 
-//var identityservice = builder.Services.AddIdentity<User, IdentityRole>();
-//identityservice.AddEntityFrameworkStores<<AppDbContext>();
-
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -57,7 +61,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Error");
+    app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -70,6 +74,9 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

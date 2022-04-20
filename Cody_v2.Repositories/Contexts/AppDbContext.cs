@@ -1,4 +1,5 @@
 ﻿using Cody_v2.Repositories.Entities;
+using Cody_v2.Repositories.Generics;
 using Cody_v2.Repositories.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Cody_v2.Repositories.Entities
+namespace Cody_v2.Repositories.Generics
 {
     public class BaseEntity
     {

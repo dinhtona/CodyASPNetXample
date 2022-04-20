@@ -1,20 +1,15 @@
-﻿using Cody_v2.Repositories.Generics;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cody_v2.Repositories.Entities
+namespace Cody_v2.Services.RequestDTOs
 {
-    public class Product:BaseEntity
+    public class ProductRequestDTO
     {
-        [MaxLength(256)]
-        [DataType("nvarchar")]
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string Description { get; set; }
-
     }
 }

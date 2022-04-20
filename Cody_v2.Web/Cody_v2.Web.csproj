@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-Cody_v2-1AE70F72-9BAE-4829-AAD2-B4C4C4D88810</UserSecretsId>
+    <UserSecretsId>aspnet-Cody_v2.Web2-831B1DD1-3F29-41D6-9401-154B5CCCDA56</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
