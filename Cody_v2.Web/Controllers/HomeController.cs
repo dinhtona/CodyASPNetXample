@@ -39,21 +39,22 @@ namespace Cody_v2.Web.Controllers
         {
             //if (ModelState.IsValid)
             //{
-            try
-            {
+            //try
+            //{
                 product = new Product();    
                 product.Id = Guid.NewGuid();
                 product.Name = null;
                 product.Description = "Điện thoại Mô tô rô la";
                 product.Price = 1000000;
                 var rowE =await _productService.Insert(product);
+                _logger.LogInformation("insert OK");
                 return Ok("insert OK");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("+++++++++++++++++++++++++++++++++++++++++\n "+ex.Message);
-                return Ok("Insert false");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    _logger.LogInformation("Đây là error: \n"+ ex.Message);
+            //    return Ok("Insert false");
+            //}
             
             
             //}

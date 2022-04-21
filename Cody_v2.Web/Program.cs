@@ -16,7 +16,6 @@ Log.Logger = new LoggerConfiguration().MinimumLevel.Debug()
     outputTemplate : "{NewLine}========================Start============================{NewLine}{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}=========================End============================={NewLine}"
     , rollingInterval: RollingInterval.Day)
     .CreateLogger();
-    
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
@@ -94,4 +93,16 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-app.Run();
+//Dont know why to code it
+try
+{
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, ex.ToString());
+}
+finally
+{
+    Log.CloseAndFlush();
+}
