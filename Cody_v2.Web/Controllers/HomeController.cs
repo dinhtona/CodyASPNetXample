@@ -43,7 +43,7 @@ namespace Cody_v2.Web.Controllers
             {
                 product = new Product();    
                 product.Id = Guid.NewGuid();
-                product.Name = "Motorola";
+                product.Name = null;
                 product.Description = "Điện thoại Mô tô rô la";
                 product.Price = 1000000;
                 var rowE =await _productService.Insert(product);

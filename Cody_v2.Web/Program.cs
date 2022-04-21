@@ -7,8 +7,21 @@ using Cody_v2.Services.Interfaces;
 using Cody_v2.Services.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+
+Log.Logger = new LoggerConfiguration().MinimumLevel.Debug()
+    .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Error)
+    .Enrich.FromLogContext()
+    .WriteTo.File(AppDomain.CurrentDomain.BaseDirectory+@"\logs\Cody_v3_log_.txt",
+    outputTemplate : "{NewLine}========================Start============================{NewLine}{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}=========================End============================={NewLine}"
+    , rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+    
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog();
+//builder.Logging.ClearProviders();
+//builder.Logging.AddConsole();
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
