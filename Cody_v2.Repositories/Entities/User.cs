@@ -8,5 +8,10 @@ namespace Cody_v2.Repositories.Entities
         [DataType("nvarchar")]
         [MaxLength(450)]
         public string? HomeAddress { get; set; }
+
+        // [Required]       
+        [DataType(DataType.Date)]
+        public DateTime? BirthDate { get; set; }
+
     }
 }
