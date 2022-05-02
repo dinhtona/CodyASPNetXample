@@ -9,6 +9,7 @@ using System.Reflection;
 
 namespace Cody_v2.Repositories.Contexts
 {
+    //Cody_v2.Repositories.Contexts.AppDbContext
     public class AppDbContext : IdentityDbContext<User>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
