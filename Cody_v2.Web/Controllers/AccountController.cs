@@ -4,6 +4,7 @@
 using Cody_v2.Repositories.Entities;
 using Cody_v2.Services;
 using Cody_v2.Services.Helpers;
+using Cody_v2.Services.Interfaces;
 using Cody_v2.Services.RequestDTOs.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,19 +19,19 @@ using System.Text.Encodings.Web;
 namespace Cody_v2.Web.Controllers
 {
     [Authorize]
-    [Area("Identity")]
+    //[Area("Identity")]
     [Route("/Account/[action]")]
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<AccountController> _logger;
         private readonly string ErrorKey = "AccountError";
 
         public AccountController(
-            UserManager<User> userManager,
-            SignInManager<User> signInManager,
+            UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
@@ -127,7 +128,7 @@ namespace Cody_v2.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.UserName, Email = model.Email };
+                var user = new AppUser { UserName = model.UserName, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -277,7 +278,7 @@ namespace Cody_v2.Web.Controllers
                 // Input.Email
                 var registeredUser = await _userManager.FindByEmailAsync(model.Email);
                 string externalEmail = null;
-                User externalEmailUser = null;
+                AppUser externalEmailUser = null;
                 
                 // Claim ~ Dac tinh mo ta mot doi tuong 
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
@@ -325,7 +326,7 @@ namespace Cody_v2.Web.Controllers
                 if((externalEmailUser == null) && (externalEmail == model.Email)) 
                 {
                     // Chua co Account -> Tao Account, lien ket, dang nhap
-                    var newUser = new User() {
+                    var newUser = new AppUser() {
                         UserName = externalEmail,
                         Email = externalEmail
                     };
@@ -350,7 +351,7 @@ namespace Cody_v2.Web.Controllers
                 }           
 
 
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new AppUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

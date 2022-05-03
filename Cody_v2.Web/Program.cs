@@ -2,6 +2,7 @@
 using Cody_v2.Repositories.Entities;
 using Cody_v2.Repositories.Generics;
 using Cody_v2.Repositories.Interfaces;
+using Cody_v2.Services;
 using Cody_v2.Services.Generics;
 using Cody_v2.Services.Interfaces;
 using Cody_v2.Services.Services;
@@ -22,10 +23,15 @@ builder.Host.UseSerilog();
 //builder.Logging.ClearProviders();
 //builder.Logging.AddConsole();
 
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddTransient<IEmailSender, SendMailService>();
+builder.Services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
 
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
@@ -33,7 +39,7 @@ builder.Services.AddTransient(typeof(IProductService), typeof(ProductService));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentity<AppUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders()
     ;

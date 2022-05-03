@@ -3,6 +3,7 @@
 
 using Cody_v2.Repositories.Entities;
 using Cody_v2.Services;
+using Cody_v2.Services.Interfaces;
 using Cody_v2.Services.RequestDTOs.Manage;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,20 +13,20 @@ namespace Cody_v2.Web.Controllers
 {
 
     [Authorize]
-    [Area("Identity")]
+    //[Area("Identity")]
     [Route("/Member/[action]")]
     public class ManageController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ManageController> _logger;
         private readonly string ErrorKey = "ManageError";
 
 
         public ManageController(
-        UserManager<User> userManager,
-        SignInManager<User> signInManager,
+        UserManager<AppUser> userManager,
+        SignInManager<AppUser> signInManager,
         IEmailSender emailSender,
         ILogger<ManageController> logger)
         {
@@ -80,7 +81,7 @@ namespace Cody_v2.Web.Controllers
             RemovePhoneSuccess,
             Error
         }
-        private Task<User> GetCurrentUserAsync()
+        private Task<AppUser> GetCurrentUserAsync()
         {
             return _userManager.GetUserAsync(HttpContext.User);
         }

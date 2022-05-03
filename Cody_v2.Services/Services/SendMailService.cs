@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Cody_v2.Services.Interfaces;
 using MailKit.Security;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -19,16 +20,10 @@ namespace Cody_v2.Services
 
     }
 
-    public interface IEmailSender
-    {
-        Task SendEmailAsync(string email, string subject, string message);
-        Task SendSmsAsync(string number, string message);
-    }
+
 
     public class SendMailService : IEmailSender
     {
-
-
         private readonly MailSettings mailSettings;
 
         private readonly ILogger<SendMailService> logger;
@@ -70,8 +65,12 @@ namespace Cody_v2.Services
             catch (Exception ex)
             {
                 // Gửi mail thất bại, nội dung email sẽ lưu vào thư mục mailssave
-                System.IO.Directory.CreateDirectory("mailssave");
-                var emailsavefile = string.Format(@"mailssave/{0}.eml", Guid.NewGuid());
+                string emailPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mailssave");
+                if (!Directory.Exists(emailPath))
+                {
+                    Directory.CreateDirectory(emailPath);
+                }
+                var emailsavefile = string.Format(Path.Combine( emailPath, @"mailssave","{0}.eml"), Guid.NewGuid());
                 await message.WriteToAsync(emailsavefile);
 
                 logger.LogInformation("Lỗi gửi mail, lưu tại - " + emailsavefile);

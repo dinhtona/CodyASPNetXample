@@ -15,7 +15,7 @@ namespace Cody_v2.Web.Controllers
 {
 
     [Authorize(Roles = RoleName.Administrator)]
-    [Area("Identity")]
+    //[Area("Identity")]
     [Route("/Role/[action]")]
     public class RoleController : Controller
     {
@@ -25,9 +25,9 @@ namespace Cody_v2.Web.Controllers
         private readonly AppDbContext _context;
         private readonly string ErrorKey = "RoleError";
 
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public RoleController(ILogger<RoleController> logger, RoleManager<IdentityRole> roleManager, AppDbContext context, UserManager<User> userManager)
+        public RoleController(ILogger<RoleController> logger, RoleManager<IdentityRole> roleManager, AppDbContext context, UserManager<AppUser> userManager)
         {
             _logger = logger;
             _roleManager = roleManager;

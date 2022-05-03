@@ -15,7 +15,7 @@ namespace Cody_v2.Services.RequestDTOs.User
 
     }
 
-    public class UserAndRole : Cody_v2.Repositories.Entities.User
+    public class UserAndRole : Cody_v2.Repositories.Entities.AppUser
     {
         public string RoleNames { get; set; }
     }

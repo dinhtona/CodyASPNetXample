@@ -5,7 +5,7 @@ namespace Cody_v2.Services.RequestDTOs.User
 {
     public class AddUserRoleModel
   {
-    public Cody_v2.Repositories.Entities.User user { get; set; }
+    public Cody_v2.Repositories.Entities.AppUser user { get; set; }
 
     [DisplayName("Các role gán cho user")]
     public string[] RoleNames { get; set; }

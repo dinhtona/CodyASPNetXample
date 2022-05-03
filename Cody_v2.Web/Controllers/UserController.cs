@@ -16,7 +16,7 @@ namespace Cody_v2.Web.Controllers
 {
 
     [Authorize(Roles = RoleName.Administrator)]
-    [Area("Identity")]
+    //[Area("Identity")]
     [Route("/ManageUser/[action]")]
     public class UserController : Controller
     {
@@ -27,9 +27,9 @@ namespace Cody_v2.Web.Controllers
         private readonly string ErrorKey = "UserError";
 
 
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public UserController(ILogger<RoleController> logger, RoleManager<IdentityRole> roleManager, AppDbContext context, UserManager<User> userManager)
+        public UserController(ILogger<RoleController> logger, RoleManager<IdentityRole> roleManager, AppDbContext context, UserManager<AppUser> userManager)
         {
             _logger = logger;
             _roleManager = roleManager;

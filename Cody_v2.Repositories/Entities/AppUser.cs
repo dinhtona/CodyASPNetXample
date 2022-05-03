@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Cody_v2.Repositories.Entities
 {
-    public class User: IdentityUser
+    public class AppUser: IdentityUser
     {
         [DataType("nvarchar")]
         [MaxLength(450)]
