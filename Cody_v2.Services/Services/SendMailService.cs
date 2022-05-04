@@ -70,7 +70,7 @@ namespace Cody_v2.Services
                 {
                     Directory.CreateDirectory(emailPath);
                 }
-                var emailsavefile = string.Format(Path.Combine( emailPath, @"mailssave","{0}.eml"), Guid.NewGuid());
+                var emailsavefile = string.Format(Path.Combine( emailPath, "{0}.eml"), Guid.NewGuid());
                 await message.WriteToAsync(emailsavefile);
 
                 logger.LogInformation("Lỗi gửi mail, lưu tại - " + emailsavefile);

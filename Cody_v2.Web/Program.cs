@@ -8,6 +8,7 @@ using Cody_v2.Services.Interfaces;
 using Cody_v2.Services.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration().MinimumLevel.Debug()
@@ -29,6 +30,13 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+var mailsettings = builder.Configuration.GetSection("MailSettings"); // đọc config
+builder.Services.Configure<MailSettings>(mailsettings); // đăng ký để Inject
+
+//var mailSetting = builder.Configuration.GetSection("MailSettings");
+//builder.Services.Configure<IOptions<MailSettings>>(mailSetting);
+
 
 builder.Services.AddTransient<IEmailSender, SendMailService>();
 builder.Services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
