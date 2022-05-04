@@ -46,6 +46,7 @@ namespace Cody_v2.Web.Controllers
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
+            returnUrl ??= Url.Content("~/");
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -77,6 +78,7 @@ namespace Cody_v2.Web.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -87,11 +89,13 @@ namespace Cody_v2.Web.Controllers
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning(2, "Tài khoản bị khóa");
+                    TempData["StatusMessage"] = "Error: Tài khoản bị khóa";
                     return View("Lockout");
                 }
                 else
                 {
                     ModelState.AddModelError(ErrorKey, "Không đăng nhập được.");
+                    TempData["StatusMessage"] = "Error: Không đăng nhập được. Tài khoản hoặc mật khẩu không chính xác!!!";
                     return View(model);
                 }
             }
@@ -101,7 +105,7 @@ namespace Cody_v2.Web.Controllers
         // POST: /Account/LogOff
         [HttpPost("/logout/")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LogOff()
+        public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User đăng xuất");
@@ -672,8 +676,5 @@ namespace Cody_v2.Web.Controllers
             return View();
         }
 
-
-
-    
   }
 }

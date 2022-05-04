@@ -87,8 +87,12 @@ namespace Cody_v2.Services
         public Task SendSmsAsync(string number, string message)
         {
             // Cài đặt dịch vụ gửi SMS tại đây
-            System.IO.Directory.CreateDirectory("smssave");
-            var emailsavefile = string.Format(@"smssave/{0}-{1}.txt", number, Guid.NewGuid());
+            string smsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "smssave");
+            if (!Directory.Exists(smsPath))
+            {
+                Directory.CreateDirectory(smsPath);
+            }
+            var emailsavefile = string.Format(Path.Combine(smsPath, "{0}-{1}.txt"), number, Guid.NewGuid());
             System.IO.File.WriteAllTextAsync(emailsavefile, message);
             return Task.FromResult(0);
         }
