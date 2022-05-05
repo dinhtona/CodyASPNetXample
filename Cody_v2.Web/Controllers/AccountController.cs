@@ -63,8 +63,8 @@ namespace Cody_v2.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                 
-                var result = await _signInManager.PasswordSignInAsync(model.UserNameOrEmail, model.Password, model.RememberMe, lockoutOnFailure: true);                
+
+                Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.UserNameOrEmail, model.Password, model.RememberMe, lockoutOnFailure: true);                
                 // Tìm UserName theo Email, đăng nhập lại
                 if ((!result.Succeeded) && ServiceUtilities.IsValidEmail(model.UserNameOrEmail))
                 {
