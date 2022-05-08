@@ -3,6 +3,7 @@
 
 using Cody_v2.Repositories.Entities;
 using Cody_v2.Services;
+using Cody_v2.Services.Helpers;
 using Cody_v2.Services.Interfaces;
 using Cody_v2.Services.RequestDTOs.Manage;
 using Microsoft.AspNetCore.Authorization;
@@ -18,15 +19,19 @@ namespace Cody_v2.Web.Controllers
     public class ManageController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ManageController> _logger;
         private readonly string ErrorKey = "ManageError";
 
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public ManageController(
         UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager,
+        RoleManager<IdentityRole> roleManager,
         IEmailSender emailSender,
         ILogger<ManageController> logger)
         {
@@ -34,6 +39,7 @@ namespace Cody_v2.Web.Controllers
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _roleManager=roleManager;
         }
 
         //
@@ -62,7 +68,7 @@ namespace Cody_v2.Web.Controllers
                 profile = new EditExtraProfileModel()
                 {
                     BirthDate = user.BirthDate,
-                    HomeAdress = user.HomeAddress,
+                    HomeAdress = user.HomeAddress??="",
                     UserName = user.UserName,
                     UserEmail = user.Email,
                     PhoneNumber = user.PhoneNumber,
@@ -398,6 +404,38 @@ namespace Cody_v2.Web.Controllers
 
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> SeedDataAsync()
+        {
+            //add default role
+            var roleNames = typeof(RoleName).GetFields().ToList();
+            foreach (var r in roleNames)
+            {
+                var roleName = r.GetRawConstantValue() as string;
+                var rExists = await _roleManager.FindByNameAsync(roleName);
+                if (rExists == null)
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+            //add default account
+            var userAdmin = await _userManager.FindByNameAsync("CodyAdmin");
+            if (userAdmin == null)
+            {
+                userAdmin = new AppUser()
+                {
+                    UserName = "CodyAdmin",
+                    Email = "dinhtona@gmail.com",
+                    EmailConfirmed = true,
+                };
+
+                await _userManager.CreateAsync(userAdmin, "Cody@123");
+                await _userManager.AddToRoleAsync(userAdmin, RoleName.Administrator);
+                StatusMessage="Vừa tạo ra role mặc định.";
+            }
+            return RedirectToAction(nameof(Index));
+        }
 
     }
 }

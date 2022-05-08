@@ -1,10 +1,13 @@
 ﻿@model IndexViewModel
 @{
     ViewData["Title"] = "Quản lý tài khoản của bạn";
+    var mes = @TempData["StatusMessage"] as string;
 }
 
 <h1>@ViewData["Title"].</h1>
-<p class="text-success">@ViewData["StatusMessage"]</p>
+@if(string.IsNullOrEmpty(@mes)!=true){
+    <p class="alert alert-success">@mes</p>
+}
 
 <div>
     <h4>Cập nhật thông tin tài khoản</h4>
@@ -129,6 +132,11 @@
                    <p>Mã phục hồi sử dụng để xác thực hai yếu tố</p>
                 </form>
             }
+        </dd>
+        <dd class="col-sm-6">
+            <form asp-controller="Manage" asp-action="SeedData" method="post" class="form-horizontal" role="form">
+                <button type="submit" class="btn btn-sm btn-danger">Tạo role mặc định</button>
+            </form>
         </dd>
     </dl>
 </div>

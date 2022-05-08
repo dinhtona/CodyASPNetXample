@@ -1,13 +1,9 @@
 ﻿using Cody_v2.Repositories.Entities;
 using Cody_v2.Repositories.Generics;
 using Cody_v2.Repositories.Helpers;
-using Cody_v2.Repositories.SeedData;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyModel;
-using System.Reflection;
 
 namespace Cody_v2.Repositories.Contexts
 {
@@ -15,13 +11,9 @@ namespace Cody_v2.Repositories.Contexts
     public class AppDbContext : IdentityDbContext<AppUser>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        UserManager<AppUser> _userManager;
-        RoleManager<IdentityRole> _roleManager;
-        public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
         {
             _httpContextAccessor = httpContextAccessor;
-            _userManager= userManager;
-            _roleManager= roleManager;
         }
 
         public DbSet<Product> Products { get; set; }
@@ -39,31 +31,6 @@ namespace Cody_v2.Repositories.Contexts
                 {
                     entityType.SetTableName(tableName.Substring(6));
                 }
-            }
-
-            //add default role
-            var roleNames= typeof(RoleName).GetFields().ToList();
-            foreach (var r in roleNames)
-            {
-                var roleName = r.GetRawConstantValue() as string;
-                var rExists = await _roleManager.FindByNameAsync(roleName);
-                if (rExists == null)
-                {
-                    await _roleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
-            //add default account
-            var userAdmin = await _userManager.FindByEmailAsync("CodyAdmin");
-            if (userAdmin == null)
-            {
-                userAdmin = new AppUser() { 
-                    UserName = "CodyAdmin",
-                    Email = "dinhtona@gmail.com",
-                    EmailConfirmed = true,
-                };
-
-                await _userManager.CreateAsync(userAdmin,"Cody@123");   
-                await _userManager.AddToRoleAsync(userAdmin, RoleName.Administrator);
             }
         }
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
