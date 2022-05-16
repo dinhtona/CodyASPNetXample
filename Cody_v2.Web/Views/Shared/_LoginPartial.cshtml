@@ -3,27 +3,35 @@
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
-<ul class="navbar-nav">
+
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-
-        <a  class="nav-link text-dark" asp-action="Index"  asp-controller="Manage" title="Manage"><i class="fa-solid fa-user"></i>
-                    Hồ sơ</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-action="Logout"  asp-controller="Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
+        App Manager
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+        <a class="dropdown-item"  asp-action="Index"  asp-controller="Manage" title="Manage"><i class="far fa-user mx-lg-1"></i>Hồ sơ</a>
+        <li><a class="dropdown-item" href="#">Action</a></li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-item">
+            <form  class="form-inline" asp-action="Logout"  asp-controller="Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+        </ul>
+    </div>
 }
 else
 {
+    <ul class="navbar-nav">
     <li class="nav-item">
         <a class="nav-link text-dark" asp-action="Register" asp-controller="Account" >Register</a>
     </li>
     <li class="nav-item">
         <a class="nav-link text-dark"  asp-action="Login" asp-controller="Account" >Login</a>
     </li>
+    </ul>
 }
-</ul>
