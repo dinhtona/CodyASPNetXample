@@ -12,52 +12,62 @@
 <div>
     <h4>Cập nhật thông tin tài khoản</h4>
     <hr />
+    <div class="card">
+          <h5 class="card-header">Thông tin cơ bản</h5>
+          <div class="card-body">
+              <div class="row">
+                    <dt class="col-sm-4"></dt>
+                    <dd class="col-sm-6"> 
+                        <dl class="row">
+                             <dt class = "col-sm-6">
+                                @Html.DisplayNameFor(m => Model.profile.UserName)
+                             </dt>   
+                             <dd class = "col-sm-6">
+                                @Html.DisplayFor(m => Model.profile.UserName)
+                             </dd>
+                        </dl>
+                         <dl class="row">
+                             <dt class = "col-sm-6">
+                                @Html.DisplayNameFor(m => Model.profile.UserEmail)
+                             </dt>   
+                             <dd class = "col-sm-6">
+                                @Html.DisplayFor(m => Model.profile.UserEmail)
+                             </dd>
+                        </dl>
+                          <dl class="row">
+                             <dt class = "col-sm-6">
+                                @Html.DisplayNameFor(m => Model.profile.PhoneNumber)
+                             </dt>   
+                             <dd class = "col-sm-6">
+                                @Html.DisplayFor(m => Model.profile.PhoneNumber)
+                             </dd>
+                        </dl>
+                           <dl class="row">
+                             <dt class = "col-sm-6">
+                                @Html.DisplayNameFor(m => Model.profile.HomeAdress)
+                             </dt>   
+                             <dd class = "col-sm-6">
+                                @Html.DisplayFor(m => Model.profile.HomeAdress)
+                             </dd>
+                        </dl>                   
+                            <dl class="row">
+                             <dt class = "col-sm-6">
+                                @Html.DisplayNameFor(m => Model.profile.BirthDate)
+                             </dt>   
+                             <dd class = "col-sm-6">
+                                @Html.DisplayFor(m => Model.profile.BirthDate)
+                             </dd>
+                        </dl>      
+                        <a asp-action="EditProfile" class="btn btn-primary btn-sm">Sửa</a>
+        
+                    </dd>
+            </div>
+          </div>
+        </div>
     <dl class="row">
-        <dt class="col-sm-4">Thông tin cơ bản:</dt>
-        <dd class="col-sm-6"> 
-            <dl class="row">
-                 <dt class = "col-sm-6">
-                    @Html.DisplayNameFor(m => Model.profile.UserName)
-                 </dt>   
-                 <dd class = "col-sm-6">
-                    @Html.DisplayFor(m => Model.profile.UserName)
-                 </dd>
-            </dl>
-             <dl class="row">
-                 <dt class = "col-sm-6">
-                    @Html.DisplayNameFor(m => Model.profile.UserEmail)
-                 </dt>   
-                 <dd class = "col-sm-6">
-                    @Html.DisplayFor(m => Model.profile.UserEmail)
-                 </dd>
-            </dl>
-              <dl class="row">
-                 <dt class = "col-sm-6">
-                    @Html.DisplayNameFor(m => Model.profile.PhoneNumber)
-                 </dt>   
-                 <dd class = "col-sm-6">
-                    @Html.DisplayFor(m => Model.profile.PhoneNumber)
-                 </dd>
-            </dl>
-               <dl class="row">
-                 <dt class = "col-sm-6">
-                    @Html.DisplayNameFor(m => Model.profile.HomeAdress)
-                 </dt>   
-                 <dd class = "col-sm-6">
-                    @Html.DisplayFor(m => Model.profile.HomeAdress)
-                 </dd>
-            </dl>                   
-                <dl class="row">
-                 <dt class = "col-sm-6">
-                    @Html.DisplayNameFor(m => Model.profile.BirthDate)
-                 </dt>   
-                 <dd class = "col-sm-6">
-                    @Html.DisplayFor(m => Model.profile.BirthDate)
-                 </dd>
-            </dl>      
-            <a asp-action="EditProfile" class="btn btn-primary btn-sm">Sửa</a>
- 
-        </dd>
+        
+
+        
 
         <dt class="col-sm-4">Mật khẩu:</dt>
         <dd class="col-sm-6">

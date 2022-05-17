@@ -1,20 +1,29 @@
 ﻿@using Cody_v2.Repositories.Entities
+@using Cody_v2.Web.Helpers
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
 
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="btn-group">
         <button type="button" class="btn btn-primary dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
-        App Manager
+        <i class="far fa-user mx-lg-1"></i>@this.User.Identity.Name
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
-        <a class="dropdown-item"  asp-action="Index"  asp-controller="Manage" title="Manage"><i class="far fa-user mx-lg-1"></i>Hồ sơ</a>
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
+        <a class="dropdown-item"  asp-action="Index"  asp-controller="Manage" title="Manage">Hồ sơ</a>
+@*        <li><a class="dropdown-item @ManageNavPages.EmailNavClass(ViewContext)" asp-controller="Manage" asp-action="Email">Email</a></li>
+        <li><a class="dropdown-item @ManageNavPages.ChangePasswordNavClass(ViewContext)" asp-controller="Manage" asp-action="ChangePassword" >Password</a></li>
+        @if (hasExternalLogins)
+        {
+            <li><a class="collapse-item @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-controller="Manage"  asp-action="ExternalLogins">External logins</a></li>
+        }
+        <li><a class="dropdown-item @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)"  asp-controller="Manage" asp-action="TwoFactorAuthentication" >Two-factor authentication</a></li>
+        <li><a class="dropdown-item @ManageNavPages.PersonalDataNavClass(ViewContext)"  asp-controller="Manage"  asp-action="PersonalData" >Personal data</a></li>*@
+
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-item">
             <form  class="form-inline" asp-action="Logout"  asp-controller="Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
