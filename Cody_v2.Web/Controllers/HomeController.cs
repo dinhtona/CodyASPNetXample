@@ -60,5 +60,10 @@ namespace Cody_v2.Web.Controllers
             //}
             //return BadRequest("Can not insert");
         }
+
+        public async Task<IActionResult> ShowTables()
+        {
+            return View();
+        }
     }
 }
