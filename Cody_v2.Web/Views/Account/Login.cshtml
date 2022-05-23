@@ -7,11 +7,105 @@
 
 @{
     ViewData["Title"] = "Đăng nhập";
+    Layout = "";
 }
+<style>
+    .login-bg { 
+  /* The image used */
+  background-image: url('lib/dist/img/login-bg.jpg');
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+    </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>@ViewData["Title"]</title>
 
-<partial name="_StatusMessage"></partial>
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="~/lib/plugins/fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="~/lib/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="~/lib/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition login-page login-bg">
 
-<h1>@ViewData["Title"].</h1>
+
+<div class="login-box">
+    <partial name="_StatusMessage"></partial>
+  <!-- /.login-logo -->
+  <div class="card card-outline card-primary">
+    <div class="card-header text-center">
+      <a  asp-controller="Home" asp-action="Index" class="h1"><b>Admin</b>Cody</a>
+    </div>
+    <div class="card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+        <div class="input-group mb-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+          <input class="form-control" placeholder="Email" asp-for="UserNameOrEmail">
+          <span asp-validation-for="UserNameOrEmail" class="text-danger"></span>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" asp-for="Password"  class="form-control" placeholder="Password">
+          <span asp-validation-for="Password" class="text-danger"></span>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <label asp-for="RememberMe">
+                    <input asp-for="RememberMe" />
+                    @Html.DisplayNameFor(m => m .RememberMe)
+                </label> 
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <div class="social-auth-links text-center mt-2 mb-3">
+        <a href="#" class="btn btn-block btn-primary">
+          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+        </a>
+        <a href="#" class="btn btn-block btn-danger">
+          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+        </a>
+      </div>
+      <!-- /.social-auth-links -->
+
+      <p class="mb-1">
+        <a href="forgot-password.html">I forgot my password</a>
+      </p>
+      <p class="mb-0">
+        <a href="register.html" class="text-center">Register a new membership</a>
+      </p>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+<!-- /.login-box -->
+@*
 <div class="row">
     <div class="col-md-8">
         <section>
@@ -88,7 +182,17 @@
             }
         </section>
     </div>
-</div>
+</div>*@
+
+<!-- jQuery -->
+<script src="~/lib/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/lib/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/lib/dist/js/adminlte.min.js"></script>
+</body>
+</html>
+
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
