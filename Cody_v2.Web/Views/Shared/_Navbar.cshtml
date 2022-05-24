@@ -154,13 +154,13 @@
         <i class="far fa-user mx-lg-1"></i>@this.User?.Identity?.Name
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
-        <a class="dropdown-item"  asp-action="Index"  asp-controller="Manage" title="Manage">Hồ sơ</a>
-        <li><hr class="dropdown-divider"></li>
-        <li class="dropdown-item">
-            <form  class="form-inline" asp-action="Logout"  asp-controller="Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
-        </li>
+            <a class="dropdown-item"  asp-action="Index"  asp-controller="Manage" title="Manage">Hồ sơ</a>
+            <li><hr class="dropdown-divider"></li>
+            <li class="dropdown-item">
+                <form  class="form-inline" asp-action="Logout"  asp-controller="Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+            </li>
         </ul>
     </div>
 }

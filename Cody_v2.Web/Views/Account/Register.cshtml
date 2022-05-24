@@ -4,10 +4,155 @@
 @model RegisterViewModel
 @{
     ViewData["Title"] = "Đăng ký tài khoản";
+    Layout = "";
 }
 
-<h1>@ViewData["Title"].</h1>
+<style>
+    .login-bg { 
+      /* The image used */
+      background-image: url('lib/dist/img/login-bg.jpg');
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;  
+    }
+/*    .login-form{
+        background-color: RGB(30,39,44,0.9)!important;        
+    }
+    .login-form, .login-form a{
+        color: white;
+    }*/
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"]</title>
 
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/lib/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="~/lib/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/lib/dist/css/adminlte.min.css">
+    </head>
+    <body class="hold-transition register-page login-bg">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="https://laptrinhvb.net//public/images/logo.png" alt="AdminLTELogo" height="60" width="60">
+        </div>
+
+        <div class="register-box">
+            <div class="card card-outline card-primary">
+              <div class="card-header text-center">
+                <a asp-controller="Home" asp-action="Index"  class="h1"><b>Admin</b>Cody</a>
+              </div>
+              <div class="card-body">
+                <p class="login-box-msg">Đăng ký hội viên Illuminarium</p>
+
+                 <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                  <div class="input-group mb-3">
+                    <input asp-for="UserName" type="text" class="form-control" placeholder="Full name">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-user"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <span asp-validation-for="UserName" class="text-danger"></span>
+                  <div class="input-group mb-3">
+                    <input type="email"  asp-for="Email" class="form-control" placeholder="Email">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <span asp-validation-for="Email" class="text-danger"></span>
+                  <div class="input-group mb-3">
+                    <input type="password" asp-for="Password"  class="form-control" placeholder="Password">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <span asp-validation-for="Password" class="text-danger"></span>
+                  <div class="input-group mb-3">
+                    <input type="password"  asp-for="ConfirmPassword" class="form-control" placeholder="Retype password">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                  <div class="row">
+                    <div class="col-8">
+                      <div class="icheck-primary">
+                        <input asp-for="AcceptTerms" type="checkbox"/>
+                        <label asp-for="AcceptTerms">
+                          I agree to the <a asp-action="Privacy" asp-controller="Home">terms</a>
+                        </label>
+                      </div>
+                    </div>
+                     <span asp-validation-for="AcceptTerms" class="text-danger"></span>
+                    <!-- /.col -->
+                    <div class="col-4">
+                      <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                </form>
+                @{
+                    var schemes = await SignInManager.GetExternalAuthenticationSchemesAsync();
+                    var loginProviders = schemes.ToList();
+                    if (loginProviders.Count > 0)
+                    {
+                        <h5 class="text-center">Hoặc thích thì chiều</h5>
+                        <form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+                            <div>
+                                <p>
+                                    @foreach (var provider in loginProviders)
+                                    {
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.Name account">@provider.Name</button>
+                                    }
+                                </p>
+                            </div>
+                        </form>
+                        //<div class="social-auth-links text-center">
+                        //    <a href="#" class="btn btn-block btn-primary">
+                        //        <i class="fab fa-facebook mr-2"></i>
+                        //        Sign up using Facebook
+                        //    </a>
+                        //    <a href="#" class="btn btn-block btn-danger">
+                        //        <i class="fab fa-google-plus mr-2"></i>
+                        //        Sign up using Google+
+                        //    </a>
+                        //</div>
+                    }
+                }
+                <a asp-action="Login" asp-controller="Account" class="text-center">Allready registed, Login now</a>
+              </div>
+              <!-- /.form-box -->
+            </div><!-- /.card -->
+          </div>
+          <!-- /.register-box -->
+    <!-- jQuery -->
+    <script src="~/lib/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/lib/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/lib/dist/js/adminlte.min.js"></script>
+</body>
+</html>
+
+@*
 <div class="row">
     <div class="col-md-8">
         <section>   
@@ -83,9 +228,11 @@
         </section>
     </div>
 </div>
-
-
-
+*@
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
+
+
+
+

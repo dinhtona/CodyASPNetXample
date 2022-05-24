@@ -1,6 +1,7 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using Cody_v2.Services.ExtendMethods;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -34,6 +35,10 @@ namespace Cody_v2.Services.RequestDTOs.Account
         [Required(ErrorMessage = "Phải nhập {0}")]
         [StringLength(100, ErrorMessage = "{0} phải dài từ {2} đến {1} ký tự.", MinimumLength = 3)]
         public string UserName { get; set; }
+
+
+        [AcceptTermsRequired(ErrorMessage:"To be Illuminarium members, you must read and accept the our terms")]
+        public bool AcceptTerms { get; set; }
 
     }
 }

@@ -11,13 +11,19 @@
 }
 <style>
     .login-bg { 
-  /* The image used */
-  background-image: url('lib/dist/img/login-bg.jpg');
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+      /* The image used */
+      background-image: url('lib/dist/img/login-bg.jpg');
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;  
+    }
+/*    .login-form{
+        background-color: RGB(30,39,44,0.9)!important;        
+    }
+    .login-form, .login-form a{
+        color: white;
+    }*/
     </style>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,16 +43,20 @@
 </head>
 <body class="hold-transition login-page login-bg">
 
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="https://laptrinhvb.net//public/images/logo.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
 
 <div class="login-box">
     <partial name="_StatusMessage"></partial>
   <!-- /.login-logo -->
-  <div class="card card-outline card-primary">
+  <div class="card card-outline card-primary login-form">
     <div class="card-header text-center">
       <a  asp-controller="Home" asp-action="Index" class="h1"><b>Admin</b>Cody</a>
     </div>
     <div class="card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">Đăng nhập để ăn hành</p>
 
       <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
         <div class="input-group mb-3">
@@ -71,9 +81,9 @@
         <div class="row">
           <div class="col-8">
             <label asp-for="RememberMe">
-                    <input asp-for="RememberMe" />
-                    @Html.DisplayNameFor(m => m .RememberMe)
-                </label> 
+                <input asp-for="RememberMe" />
+                @Html.DisplayNameFor(m => m .RememberMe)
+            </label> 
           </div>
           <!-- /.col -->
           <div class="col-4">
@@ -82,22 +92,41 @@
           <!-- /.col -->
         </div>
       </form>
+        @{
+            var schemes = await SignInManager.GetExternalAuthenticationSchemesAsync();
+            var loginProviders = schemes.ToList();
+            if (loginProviders.Count > 0)
+            {
+                <h5 class="text-center">Hoặc thích thì chiều</h5>
+                <form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+                    <div>
+                        <p>
+                            @foreach (var provider in loginProviders)
+                            {
+                                <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.Name account">@provider.Name</button>
+                            }
+                        </p>
+                    </div>
+                </form>
+                @*    <h5 class="text-center">Hoặc thích thì chiều</h5>
+                        <div class="social-auth-links text-center mt-2 mb-3">
+                        <a href="#" class="btn btn-block btn-primary">
+                            <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                        </a>
+                        <a href="#" class="btn btn-block btn-danger">
+                            <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                        </a>
+                        </div>*@
+            }
+        }
 
-      <div class="social-auth-links text-center mt-2 mb-3">
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a>
-      </div>
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+        <a asp-action="ForgotPassword" asp-controller="Account" >Quên mật khẩu há?</a>
       </p>
       <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a asp-action="Register" asp-controller="Account"  asp-route-returnurl="@ViewData["ReturnUrl"]"  class="text-center">Đăng ký hội viên Illuminarium</a>
       </p>
     </div>
     <!-- /.card-body -->
