@@ -1,4 +1,6 @@
 ﻿@using Cody_v2.Repositories.Entities
+@using Microsoft.AspNetCore.Mvc
+@using Microsoft.AspNetCore.Mvc.ModelBinding
 @inject SignInManager<AppUser> SignInManager
 
 @model RegisterViewModel
@@ -45,8 +47,9 @@
         <div class="preloader flex-column justify-content-center align-items-center">
         <img class="animation__shake" src="https://laptrinhvb.net//public/images/logo.png" alt="AdminLTELogo" height="60" width="60">
         </div>
-
+        
         <div class="register-box">
+            <partial name="_StatusMessage"></partial>
             <div class="card card-outline card-primary">
               <div class="card-header text-center">
                 <a asp-controller="Home" asp-action="Index"  class="h1"><b>Admin</b>Cody</a>

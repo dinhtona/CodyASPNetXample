@@ -57,8 +57,7 @@ namespace Cody_v2.Web.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
-        {
-            
+        {            
             returnUrl ??= Url.Content("~/");
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -77,7 +76,7 @@ namespace Cody_v2.Web.Controllers
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation(1, "User logged in.");
+                    //_logger.LogInformation(1, "User logged in.");
 
                     return LocalRedirect(returnUrl);
                 }
@@ -88,14 +87,14 @@ namespace Cody_v2.Web.Controllers
                 
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning(2, "Tài khoản bị khóa");
-                    TempData["StatusMessage"] = "Error: Tài khoản bị khóa";
+                    //_logger.LogWarning(2, "Tài khoản bị khóa");
+                    TempData["StatusMessage"] = "Error: Your account has been locked.";
                     return View("Lockout");
                 }
                 else
                 {
-                    ModelState.AddModelError(ErrorKey, "Không đăng nhập được.");
-                    TempData["StatusMessage"] = "Error: Không đăng nhập được. Tài khoản hoặc mật khẩu không chính xác!!!";
+                    ModelState.AddModelError(ErrorKey, "Error: Failed to login. Please check your email box to confirm your account." );
+                    //TempData["StatusMessage"] = "Error: Failed to login. Please check your email box to confirm your account.";
                     return View(model);
                 }
             }
@@ -108,7 +107,7 @@ namespace Cody_v2.Web.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            _logger.LogInformation("User đăng xuất");
+            //_logger.LogInformation("User đăng xuất");
             return RedirectToAction("Index", "Home", new {area = ""});
         }
         //
@@ -137,7 +136,7 @@ namespace Cody_v2.Web.Controllers
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("Đã tạo user mới.");
+                    //_logger.LogInformation("Đã tạo user mới.");
 
                     // Phát sinh token để xác nhận email
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -169,10 +168,12 @@ namespace Cody_v2.Web.Controllers
                     }
 
                 }
-
-                ModelState.AddModelError(ErrorKey, result.ToString());
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(ErrorKey, item.Description + " If this account is yours, use the \"Forgot Password\" link. ");
+                }
+                //ModelState.AddModelError(ErrorKey, result.ToString());
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -572,7 +573,7 @@ namespace Cody_v2.Web.Controllers
             }
             if (result.IsLockedOut)
             {
-                _logger.LogWarning(7, "User account locked out.");
+                //_logger.LogWarning(7, "User account locked out.");
                 return View("Lockout");
             }
             else
@@ -620,7 +621,7 @@ namespace Cody_v2.Web.Controllers
             }
             if (result.IsLockedOut)
             {
-                _logger.LogWarning(7, "User account locked out.");
+                //_logger.LogWarning(7, "User account locked out.");
                 return View("Lockout");
             }
             else

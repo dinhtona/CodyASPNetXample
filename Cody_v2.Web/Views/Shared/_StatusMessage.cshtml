@@ -1,5 +1,7 @@
-@{
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@*@{
     var mgs = TempData["StatusMessage"] as string;
+
 }
 
 @if (!String.IsNullOrEmpty(mgs))
@@ -9,4 +11,18 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         @mgs
     </div>
+}*@
+@foreach (ModelStateEntry modelState in ViewData.ModelState.Values)
+{
+    foreach (ModelError error in modelState.Errors)
+    {
+        @*if (!error.ErrorMessage.Contains("returnUrl"))
+        {*@
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @error.ErrorMessage
+            </div>
+        //}
+        
+    }
 }
