@@ -48,7 +48,11 @@ namespace Cody_v2.Web.Controllers
         {
             returnUrl ??= Url.Content("~/");
             ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            bool isAuthenticated = User?.Identity?.IsAuthenticated ?? false;
+            if (isAuthenticated)
+                return RedirectToAction("Index", "Home", new { area = "" });
+            else
+                return View();
         }
 
         //
@@ -57,12 +61,11 @@ namespace Cody_v2.Web.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
-        {            
+        {
             returnUrl ??= Url.Content("~/");
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-
                 Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.UserNameOrEmail, model.Password, model.RememberMe, lockoutOnFailure: true);                
                 // Tìm UserName theo Email, đăng nhập lại
                 if ((!result.Succeeded) && ServiceUtilities.IsValidEmail(model.UserNameOrEmail))
@@ -98,6 +101,7 @@ namespace Cody_v2.Web.Controllers
                     return View(model);
                 }
             }
+            
             return View(model);
         }
 
@@ -112,7 +116,7 @@ namespace Cody_v2.Web.Controllers
         }
         //
         // GET: /Account/Register
-        [HttpGet]
+        [HttpGet("/register/")]
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
@@ -122,7 +126,7 @@ namespace Cody_v2.Web.Controllers
         }
         //
         // POST: /Account/Register
-        [HttpPost]
+        [HttpPost("/register/")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)

@@ -79,15 +79,15 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-8">
-            <label asp-for="RememberMe">
+          <div class="col-8 d-sm-flex align-items-center">            
                 <input asp-for="RememberMe" />
-                @Html.DisplayNameFor(m => m .RememberMe)
-            </label> 
+                <label asp-for="RememberMe" class="m-auto">
+                    @Html.DisplayNameFor(m => m .RememberMe)
+                </label> 
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" id="login-submit" class="btn btn-primary btn-block">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
@@ -222,6 +222,26 @@
 </body>
 </html>
 
+@*<script>
+$('login-submit').click(function () {
+            var id = $(this).attr('iditem');
+            $.ajax({
+                url: subDomainUrl + '/' + '@ViewData["EditUrl"]',
+                contentType: 'application/html; charset=utf-8',
+                data: { id: id },
+                type: 'GET',
+                dataType: 'html'
+            })
+                .done(function (result) {
+                    $('#modal-body-edit').html(result);
+                    $('#modal-edit').modal();
+                })
+                .fail(function (xhr, status) {
+                    alert(status);
+                })
+        })
+
+</script>*@
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
