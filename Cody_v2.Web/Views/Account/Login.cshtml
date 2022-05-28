@@ -44,9 +44,11 @@
 <body class="hold-transition login-page login-bg">
 
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
+@*    <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="https://laptrinhvb.net//public/images/logo.png" alt="AdminLTELogo" height="60" width="60">
-    </div>
+    </div>*@
+
+
 
 <div class="login-box">
     <partial name="_StatusMessage"></partial>
@@ -58,7 +60,7 @@
     <div class="card-body">
       <p class="login-box-msg">Đăng nhập để ăn hành</p>
 
-      <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+      <form id="login-form" asp-controller="Account" asp-action="Login" onsubmit="formSubmitted();" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
         <div class="input-group mb-3">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
           <input class="form-control" placeholder="Email" asp-for="UserNameOrEmail">
@@ -87,8 +89,8 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" id="login-submit" class="btn btn-primary btn-block">Sign In</button>
-          </div>
+            @await Html.PartialAsync("_ButtonWithSpinner","Login")
+          </div>           
           <!-- /.col -->
         </div>
       </form>
@@ -219,29 +221,11 @@
 <script src="~/lib/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="~/lib/dist/js/adminlte.min.js"></script>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+
 </body>
 </html>
-
-@*<script>
-$('login-submit').click(function () {
-            var id = $(this).attr('iditem');
-            $.ajax({
-                url: subDomainUrl + '/' + '@ViewData["EditUrl"]',
-                contentType: 'application/html; charset=utf-8',
-                data: { id: id },
-                type: 'GET',
-                dataType: 'html'
-            })
-                .done(function (result) {
-                    $('#modal-body-edit').html(result);
-                    $('#modal-edit').modal();
-                })
-                .fail(function (xhr, status) {
-                    alert(status);
-                })
-        })
-
-</script>*@
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }

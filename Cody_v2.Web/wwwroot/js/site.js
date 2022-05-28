@@ -2,3 +2,9 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+function formSubmitted() {
+    $(':input[type="submit"]').prop('disabled', true);
+    $("#loading-spinner").show();
+    $("#fullscreenloading")?.show();
+}
