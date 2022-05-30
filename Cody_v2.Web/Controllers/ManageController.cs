@@ -383,7 +383,7 @@ namespace Cody_v2.Web.Controllers
             var model = new EditExtraProfileModel()
             {
                 BirthDate = user.BirthDate,
-                HomeAdress = user.HomeAddress,
+                HomeAdress = user?.HomeAddress??"",
                 UserName = user.UserName,
                 UserEmail = user.Email,
                 PhoneNumber = user.PhoneNumber,

@@ -43,7 +43,6 @@ builder.Services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>
 
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
-builder.Services.AddTransient(typeof(IProductService), typeof(ProductService));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

@@ -45,13 +45,13 @@ namespace Cody_v2.Web.Controllers
         {
             
            var r = await _roleManager.Roles.OrderBy(r => r.Name).ToListAsync();
-           var roles = new List<RoleModel>();
+           var roles = new List<AppRole>();
            foreach (var _r in r)
            {
                var claims = await _roleManager.GetClaimsAsync(_r);
                var claimsString = claims.Select(c => c.Type  + "=" + c.Value);
 
-               var rm = new RoleModel()
+               var rm = new AppRole()
                {
                    Name = _r.Name,
                    Id = _r.Id,

@@ -16,8 +16,6 @@ namespace Cody_v2.Repositories.Contexts
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public DbSet<Product> Products { get; set; }
-
         protected override async void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
