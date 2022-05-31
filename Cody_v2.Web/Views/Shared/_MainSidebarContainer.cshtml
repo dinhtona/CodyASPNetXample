@@ -175,31 +175,33 @@
                         </li>
                     </ul>
                 </li>
+
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fas fa-circle nav-icon"></i>
                         <p>Level 1</p>
                     </a>
                 </li>
-                <li class="nav-header">LABELS</li>
+            @if (this.User.IsInRole(Cody_v2.Services.Helpers.RoleName.Administrator))
+            {
+                <li class="nav-header">Administrator</li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-danger"></i>
-                        <p class="text">Important</p>
+                    <a asp-controller="Role" asp-action="Index"  class="nav-link">
+                        <i class="fas fa-user-tag nav-icon"></i><p class="text">Roles Manager</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a  asp-controller="User" asp-action="Index"  class="nav-link">
+                        <i class="far fa-user nav-icon"></i><p>Users Manager</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Warning</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-info"></i>
                         <p>Informational</p>
                     </a>
                 </li>
+
+            }
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

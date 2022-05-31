@@ -4,6 +4,7 @@ using Cody_v2.Repositories.Generics;
 using Cody_v2.Repositories.Interfaces;
 using Cody_v2.Services;
 using Cody_v2.Services.Generics;
+using Cody_v2.Services.Helpers;
 using Cody_v2.Services.Interfaces;
 using Cody_v2.Services.Services;
 using Microsoft.AspNetCore.Identity;
@@ -50,6 +51,12 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options => options.SignIn.Re
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders()
     ;
+
+//builder.Services.AddAuthorization(options => {
+//    options.AddPolicy(RoleName.Administrator, policy => policy.RequireRole(RoleName.Member));
+//    options.AddPolicy(RoleName.Member, policy => policy.RequireRole(RoleName.Administrator));
+//    options.AddPolicy(RoleName.Editor, policy => policy.RequireRole(RoleName.Editor));
+//});
 
 // Truy cập IdentityOptions
 builder.Services.Configure<IdentityOptions>(options => {

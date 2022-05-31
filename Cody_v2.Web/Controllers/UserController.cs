@@ -17,7 +17,7 @@ namespace Cody_v2.Web.Controllers
 
     [Authorize(Roles = RoleName.Administrator)]
     //[Area("Identity")]
-    [Route("/ManageUser/[action]")]
+    [Route("/users/[action]")]
     public class UserController : Controller
     {
         
@@ -44,7 +44,7 @@ namespace Cody_v2.Web.Controllers
 
         //
         // GET: /ManageUser/Index
-        [HttpGet]
+        [HttpGet("users")]
         public async Task<IActionResult> Index([FromQuery(Name = "p")] int currentPage)
         {
             var model = new UserListModel();

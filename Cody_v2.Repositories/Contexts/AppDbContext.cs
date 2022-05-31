@@ -2,13 +2,14 @@
 using Cody_v2.Repositories.Generics;
 using Cody_v2.Repositories.Helpers;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cody_v2.Repositories.Contexts
 {
     //Cody_v2.Repositories.Contexts.AppDbContext
-    public class AppDbContext : IdentityDbContext<AppUser>
+    public class AppDbContext : IdentityDbContext<AppUser,IdentityRole,string>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
@@ -19,6 +20,7 @@ namespace Cody_v2.Repositories.Contexts
         protected override async void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
             // Bỏ tiền tố AspNet của các bảng: mặc định các bảng trong IdentityDbContext có
             // tên với tiền tố AspNet như: AspNetUserRoles, AspNetUser ...
             // Đoạn mã sau chạy khi khởi tạo DbContext, tạo database sẽ loại bỏ tiền tố đó
@@ -30,6 +32,7 @@ namespace Cody_v2.Repositories.Contexts
                     entityType.SetTableName(tableName.Substring(6));
                 }
             }
+
         }
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
