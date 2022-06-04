@@ -16,7 +16,7 @@ namespace Cody_v2.Web.Controllers
 
     [Authorize(Roles = RoleName.Administrator)]
     //[Area("Identity")]
-    [Route("/role/[action]")]
+    [Route("/[controller]/{action=index}")]
     public class RoleController : Controller
     {
         
@@ -40,7 +40,7 @@ namespace Cody_v2.Web.Controllers
 
         //
         // GET: /Role/Index
-        [HttpGet("/role")]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             

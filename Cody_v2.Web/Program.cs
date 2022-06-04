@@ -25,6 +25,15 @@ builder.Host.UseSerilog();
 //builder.Logging.ClearProviders();
 //builder.Logging.AddConsole();
 
+// Cấu hình Cookie
+builder.Services.ConfigureApplicationCookie(options => {
+    // options.Cookie.HttpOnly = true;  
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.LoginPath = $"/login/"; // Url đến trang đăng nhập
+    options.LogoutPath = $"/logout/";
+    options.AccessDeniedPath = $"/khongduoctruycap.html"; // Trang khi User bị cấm truy cập
+});
+
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 // Add services to the container.

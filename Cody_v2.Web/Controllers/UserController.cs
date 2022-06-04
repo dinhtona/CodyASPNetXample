@@ -15,9 +15,9 @@ using System.Security.Claims;
 namespace Cody_v2.Web.Controllers
 {
 
-    [Authorize(Roles = RoleName.Administrator)]
+    [Authorize(Roles = RoleName.Administrator)]        
     //[Area("Identity")]
-    [Route("/users/[action]")]
+    [Route("/[controller]/{action=index}")]
     public class UserController : Controller
     {
         
@@ -44,7 +44,6 @@ namespace Cody_v2.Web.Controllers
 
         //
         // GET: /ManageUser/Index
-        [HttpGet("users")]
         public async Task<IActionResult> Index([FromQuery(Name = "p")] int currentPage)
         {
             var model = new UserListModel();
@@ -79,21 +78,21 @@ namespace Cody_v2.Web.Controllers
         } 
 
         // GET: /ManageUser/AddRole/id
-        [HttpGet("{id}")]
-        public async Task<IActionResult> AddRoleAsync(string id)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> AddRoleAsync(string userId)
         {
             // public SelectList allRoles { get; set; }
             var model = new AddUserRoleModel();
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(userId))
             {
                 return NotFound($"Không có user");
             }
 
-            model.user = await _userManager.FindByIdAsync(id);
+            model.user = await _userManager.FindByIdAsync(userId);
 
             if (model.user == null)
             {
-                return NotFound($"Không thấy user, id = {id}.");
+                return NotFound($"Không thấy user, id = {userId}.");
             }
 
             model.RoleNames = (await _userManager.GetRolesAsync(model.user)).ToArray<string>();
@@ -107,20 +106,20 @@ namespace Cody_v2.Web.Controllers
         }
 
         // GET: /ManageUser/AddRole/id
-        [HttpPost("{id}")]
+        [HttpPost("{userId}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddRoleAsync(string id, [Bind("RoleNames")] AddUserRoleModel model)
+        public async Task<IActionResult> AddRoleAsync(string userId, [Bind("RoleNames")] AddUserRoleModel model)
         {
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(userId))
             {
                 return NotFound($"Không có user");
             }
 
-            model.user = await _userManager.FindByIdAsync(id);
+            model.user = await _userManager.FindByIdAsync(userId);
 
             if (model.user == null)
             {
-                return NotFound($"Không thấy user, id = {id}.");
+                return NotFound($"Không thấy user, id = {userId}.");
             }
             await GetClaims(model);
 
@@ -153,40 +152,40 @@ namespace Cody_v2.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> SetPasswordAsync(string id)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> SetPasswordAsync(string userId)
         {
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(userId))
             {
                 return NotFound($"Không có user");
             }
 
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(userId);
             ViewBag.user = ViewBag;
 
             if (user == null)
             {
-                return NotFound($"Không thấy user, id = {id}.");
+                return NotFound($"Không thấy user, id = {userId}.");
             }
 
             return View();
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("{userId}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SetPasswordAsync(string id, SetUserPasswordModel model)
+        public async Task<IActionResult> SetPasswordAsync(string userId, SetUserPasswordModel model)
         {
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(userId))
             {
                 return NotFound($"Không có user");
             }
 
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(userId);
             ViewBag.user = ViewBag;
 
             if (user == null)
             {
-                return NotFound($"Không thấy user, id = {id}.");
+                return NotFound($"Không thấy user, id = {userId}.");
             }
 
             if (!ModelState.IsValid)
@@ -292,7 +291,7 @@ namespace Cody_v2.Web.Controllers
 
             ViewBag.user = user;
             ViewBag.userclaim = userclaim;
-            return RedirectToAction("AddRole", new {id = user.Id});
+            return RedirectToAction("AddRole", new {userId = user.Id});
         }
         [HttpPost("{claimid}")]
         [ValidateAntiForgeryToken]

@@ -19,15 +19,15 @@
             <td>
                 @if (string.IsNullOrEmpty(user.RoleNames))
                 {
-                    <a class="text-dark" asp-action="AddRole" asp-route-id="@user.Id">+ Thêm roles</a>
+                    <a class="text-dark" asp-controller="User" asp-action="AddRole" asp-route-userId="@user.Id">+ Thêm roles</a>
                 }
                 else
                 {
-                    <a asp-action="AddRole" asp-route-id="@user.Id">@user.RoleNames</a>
+                    <a asp-controller="User" asp-action="AddRole" asp-route-userId="@user.Id">@user.RoleNames</a>
                 }
             </td>
             <td>
-                <a class="btn btn-success btn-sm" asp-action="SetPassword" asp-route-id="@user.Id">Đặt mật khẩu</a>
+                <a class="btn btn-success btn-sm" asp-controller="User" asp-action="SetPassword" asp-route-id="@user.Id">Đặt mật khẩu</a>
             </td>
         </tr>
     }
