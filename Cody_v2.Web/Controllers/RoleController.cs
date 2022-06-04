@@ -195,7 +195,7 @@ namespace Cody_v2.Web.Controllers
 
             var model = new EditClaimModel()
             {
-                role = role
+                Role = role
             };
             return View(model);
         }             
@@ -211,7 +211,7 @@ namespace Cody_v2.Web.Controllers
             {
                 return NotFound("Không tìm thấy role");
             } 
-            model.role = role;
+            model.Role = role;
             if (!ModelState.IsValid) return View(model);
 
 
@@ -251,7 +251,7 @@ namespace Cody_v2.Web.Controllers
             {
                 ClaimType = claim.ClaimType,
                 ClaimValue = claim.ClaimValue,
-                role = role
+                Role = role
             };
 
 
@@ -270,7 +270,7 @@ namespace Cody_v2.Web.Controllers
 
             var role = await _roleManager.FindByIdAsync(claim.RoleId);
             if (role == null) return NotFound("Không tìm thấy role");
-            Input.role = role;
+            Input.Role = role;
             if  (!ModelState.IsValid)
             {
                 return View(Input);
@@ -301,7 +301,7 @@ namespace Cody_v2.Web.Controllers
 
             var role = await _roleManager.FindByIdAsync(claim.RoleId);
             if (role == null) return NotFound("Không tìm thấy role");
-            Input.role = role;
+            Input.Role = role;
             if  (!ModelState.IsValid)
             {
                 return View(Input);

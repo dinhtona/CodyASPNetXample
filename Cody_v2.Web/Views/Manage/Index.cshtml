@@ -4,7 +4,6 @@
     var mes = @TempData["StatusMessage"] as string;
 }
 
-<h1>@ViewData["Title"].</h1>
 @if(string.IsNullOrEmpty(@mes)!=true){
     <p class="alert alert-success">@mes</p>
 }
@@ -30,6 +29,7 @@
                              <dt class = "col-sm-6">
                                 @Html.DisplayNameFor(m => Model.profile.UserEmail)
                              </dt>   
+                             <dd class = "col-sm-6">
                              <dd class = "col-sm-6">
                                 @Html.DisplayFor(m => Model.profile.UserEmail)
                              </dd>

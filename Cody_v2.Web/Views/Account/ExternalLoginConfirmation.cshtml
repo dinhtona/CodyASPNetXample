@@ -3,7 +3,6 @@
     ViewData["Title"] = "Đăng ký";
 }
 
-<h1>@ViewData["Title"].</h1>
 <h3>Thực hiện liên kết với tài khoản @ViewData["ProviderDisplayName"].</h3>
 
 <form asp-controller="Account" asp-action="ExternalLoginConfirmation" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">

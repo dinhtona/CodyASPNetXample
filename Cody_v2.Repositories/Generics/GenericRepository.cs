@@ -60,14 +60,14 @@ namespace Cody_v2.Repositories.Generics
         public async Task<IEnumerable<T>> GetAll()
         {
             return await dbSet.ToListAsync();
-        }
+        } 
 
-        public async Task<IEnumerable<T>> GetByCondition(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
+        public async Task<IEnumerable<T>> GetByCondition(Expression<Func<T, bool>> filter=null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
         {
             return await GetByConditionQueryable(filter, orderBy, includeProperties).ToListAsync();
         }
 
-        public IQueryable<T> GetByConditionQueryable(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
+        public IQueryable<T> GetByConditionQueryable(Expression<Func<T, bool>> filter=null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
         {
             IQueryable<T> query = dbSet;
             if (filter != null)

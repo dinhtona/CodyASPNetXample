@@ -3,7 +3,6 @@
     ViewData["Title"] = "Xác thực";
 }
 
-<h1>@ViewData["Title"].</h1>
 
 <form asp-controller="Account" asp-action="VerifyCode" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>

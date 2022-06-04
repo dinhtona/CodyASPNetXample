@@ -1,9 +1,8 @@
 @model AddUserRoleModel
 @{
-    ViewData["Title"] = "Gán role";
+    ViewData["Title"] = "Gán role: " +@Model.user.UserName;
 }
 
-<h4>Thiết lập role cho user: @Model.user.UserName</h4>
 <partial name="_StatusMessage" />
 
 <div class="row">

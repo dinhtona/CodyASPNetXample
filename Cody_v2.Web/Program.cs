@@ -40,6 +40,9 @@ builder.Services.Configure<MailSettings>(mailsettings); // đăng ký để Inje
 
 
 builder.Services.AddTransient<IEmailSender, SendMailService>();
+builder.Services.AddTransient<IAppUserService, AppUserService>();
+builder.Services.AddTransient<IAppRoleService, AppRoleService>();
+builder.Services.AddTransient<IRoleClaimService, RoleClaimService>();
 builder.Services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
 
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));

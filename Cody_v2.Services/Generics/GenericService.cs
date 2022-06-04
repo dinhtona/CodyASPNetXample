@@ -37,12 +37,12 @@ namespace Cody_v2.Services.Generics
             return await repository.GetAll();
         }
 
-        public async Task<IEnumerable<T>> GetByCondition(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
+        public async Task<IEnumerable<T>> GetByCondition(Expression<Func<T, bool>> filter=null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
         {
             return await repository.GetByCondition(filter, orderBy, includeProperties);
         }
 
-        public IQueryable<T> GetByConditionQueryable(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
+        public IQueryable<T> GetByConditionQueryable(Expression<Func<T, bool>> filter=null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
         {
             return repository.GetByConditionQueryable(filter, orderBy, includeProperties);
         }
