@@ -4,12 +4,10 @@ using Cody_v2.Repositories.Generics;
 using Cody_v2.Repositories.Interfaces;
 using Cody_v2.Services;
 using Cody_v2.Services.Generics;
-using Cody_v2.Services.Helpers;
 using Cody_v2.Services.Interfaces;
 using Cody_v2.Services.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration().MinimumLevel.Debug()
