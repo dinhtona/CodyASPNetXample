@@ -32,13 +32,6 @@
         </tr>
     }
 </table>
-@{
-    var pagingmodel = new PageResultBase()
-    {
-        CurrentPage = Model.currentPage,
-        PageCount = Model.countPages,
-         GenerateUrl = (int? p) => Url.Action("Index", new { p = p})
-    };
-}
 
-<partial name="_Paging" model="@pagingmodel" />
+
+@*<partial name="_Paging_partial" model="@pagingmodel" />*@

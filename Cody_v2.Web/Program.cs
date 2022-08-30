@@ -45,11 +45,13 @@ builder.Services.Configure<MailSettings>(mailsettings); // đăng ký để Inje
 //var mailSetting = builder.Configuration.GetSection("MailSettings");
 //builder.Services.Configure<IOptions<MailSettings>>(mailSetting);
 
-
+builder.Services.AddTransient<IAppDbContext>(provider => provider.GetService<AppDbContext>());
 builder.Services.AddTransient<IEmailSender, SendMailService>();
 builder.Services.AddTransient<IAppUserService, AppUserService>();
 builder.Services.AddTransient<IAppRoleService, AppRoleService>();
 builder.Services.AddTransient<IRoleClaimService, RoleClaimService>();
+builder.Services.AddTransient<IDapperGenericRepository, DapperGenericRepository>();
+builder.Services.AddTransient<IDapperGenericService, DapperGenericService>();
 builder.Services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
 
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
